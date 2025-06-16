@@ -2,11 +2,14 @@ import jwt from 'jsonwebtoken';
 import { JWT_SECRET } from '../config/env.js';
 import User from '../models/user.model.js';
 
-const authorize = async (req,res) => {
+
+// someone is making a request to get user details => authorize middleware => verify => if valid => next -> get user details
+
+const authorize = async (req,res,next) => {
     try {
         let token;
 
-        if(req.headers.authorization && req.headers.authorization.startWith('Bearer')) {
+        if(req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
             token = req.headers.authorization.split(' ')[1];
         }
 
